@@ -3,131 +3,239 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Admin Dashboard</title>
-  <!-- Tailwind CSS CDN -->
+  <title>Sistem AR & Ekspedisi</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 antialiased">
-
   <div class="flex h-screen overflow-hidden">
+    
     <!-- Sidebar -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col shrink-0 hidden md:flex">
-      <div class="p-5 text-xl font-bold border-b border-slate-800 flex items-center space-x-2">
-        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
-        <span>Admin Corner</span>
-      </div>
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shrink-0">
+      <div class="p-5 text-xl font-bold border-b border-slate-800">Admin Corner</div>
       <nav class="flex-1 p-4 space-y-1">
-        <a href="#" class="flex items-center px-4 py-2.5 bg-blue-600 rounded-lg text-sm font-medium">Overview</a>
-        <a href="#" class="flex items-center px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition">Analytics</a>
-        <a href="#" class="flex items-center px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition">Reports</a>
-        <a href="#" class="flex items-center px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition">Settings</a>
+        <button onclick="changeMenu('tt')" id="btn-tt" class="w-full text-left px-4 py-2.5 bg-blue-600 rounded-lg text-sm font-medium menu-btn">Tanda Terima</button>
+        <button onclick="changeMenu('resi')" id="btn-resi" class="w-full text-left px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition menu-btn">Resi</button>
+        <button onclick="changeMenu('cmd')" id="btn-cmd" class="w-full text-left px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition menu-btn">Data CMD</button>
+        <button onclick="changeMenu('invoice')" id="btn-invoice" class="w-full text-left px-4 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition menu-btn">Data Invoice</button>
       </nav>
-      <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
-        Deployed on Cloudflare Pages
-      </div>
     </aside>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-y-auto">
-      <!-- Topbar -->
-      <header class="bg-white shadow-sm border-b px-6 py-4 flex items-center justify-between">
-        <h1 class="text-xl font-semibold text-slate-800">Dashboard Monitoring</h1>
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-            AD
-          </div>
+    <div class="flex-1 flex flex-col overflow-y-auto p-6 relative">
+      
+      <!-- LOADING OVERLAY -->
+      <div id="loading" class="absolute inset-0 bg-white/80 z-50 flex items-center justify-center hidden">
+        <span class="text-blue-600 font-bold">Memproses Data...</span>
+      </div>
+
+      <!-- HALAMAN: TANDA TERIMA -->
+      <section id="page-tt" class="page-section">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Dashboard Tanda Terima</h1>
+          <button onclick="toggleForm('form-tt')" class="bg-blue-600 text-white px-4 py-2 rounded shadow">+ Buat Tanda Terima</button>
         </div>
-      </header>
-
-      <!-- Main Body -->
-      <main class="p-6 space-y-6">
-        <!-- Stat Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <p class="text-xs font-semibold text-slate-500 uppercase">Total Revenue</p>
-            <h3 class="text-2xl font-bold text-slate-900 mt-1">Rp 124.500.000</h3>
-            <span class="text-xs text-emerald-600 font-medium inline-block mt-2">+12% dari bulan lalu</span>
+        
+        <!-- Form TT -->
+        <div id="form-tt" class="bg-white p-5 rounded border mb-6 hidden">
+          <h3 class="font-bold mb-3">Buat Tanda Terima Baru</h3>
+          <div class="mb-4">
+            <label class="block text-sm mb-1">Customer (Pilih dari CMD)</label>
+            <select id="tt-customer" class="w-full border rounded p-2"></select>
           </div>
-
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <p class="text-xs font-semibold text-slate-500 uppercase">Active Users</p>
-            <h3 class="text-2xl font-bold text-slate-900 mt-1">1.284</h3>
-            <span class="text-xs text-emerald-600 font-medium inline-block mt-2">+5% minggu ini</span>
-          </div>
-
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <p class="text-xs font-semibold text-slate-500 uppercase">Pending Tasks</p>
-            <h3 class="text-2xl font-bold text-slate-900 mt-1">18</h3>
-            <span class="text-xs text-amber-600 font-medium inline-block mt-2">Perlu tindak lanjut</span>
-          </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Line Chart -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
-            <h2 class="text-base font-semibold text-slate-800 mb-4">Tren Performa</h2>
-            <div class="h-64">
-              <canvas id="revenueChart"></canvas>
+          <div class="mb-4">
+            <label class="block text-sm mb-1">Daftar Invoice</label>
+            <div id="invoice-list" class="space-y-2 mb-2">
+              <div class="flex space-x-2 inv-row">
+                <input type="text" placeholder="No Invoice" class="border rounded p-2 flex-1 inv-no">
+                <input type="number" placeholder="Nominal Rp" class="border rounded p-2 flex-1 inv-nom">
+              </div>
             </div>
+            <button onclick="addInvoiceRow()" class="text-sm text-blue-600">+ Tambah Baris Invoice</button>
           </div>
-
-          <!-- Doughnut Chart -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <h2 class="text-base font-semibold text-slate-800 mb-4">Distribusi Status</h2>
-            <div class="h-64 flex items-center justify-center">
-              <canvas id="statusChart"></canvas>
-            </div>
-          </div>
+          <button onclick="submitTT()" class="bg-green-600 text-white px-4 py-2 rounded">Simpan Data</button>
+          <button onclick="toggleForm('form-tt')" class="text-red-600 ml-4">Batal</button>
         </div>
-      </main>
+
+        <div class="bg-white rounded border overflow-hidden"><table class="w-full text-left text-sm"><thead class="bg-slate-50 border-b"><tr><th class="p-3">Tanggal</th><th class="p-3">No TT</th><th class="p-3">Customer</th><th class="p-3">No Resi</th></tr></thead><tbody id="table-tt"></tbody></table></div>
+      </section>
+
+      <!-- HALAMAN: RESI -->
+      <section id="page-resi" class="page-section hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Update Resi Ekspedisi</h1>
+          <button onclick="toggleForm('form-resi')" class="bg-blue-600 text-white px-4 py-2 rounded shadow">+ Update Resi</button>
+        </div>
+        <div id="form-resi" class="bg-white p-5 rounded border mb-6 hidden">
+          <div class="mb-4">
+            <label class="block text-sm mb-1">No Tanda Terima</label>
+            <select id="resi-nott" class="w-full border rounded p-2"></select>
+          </div>
+          <div class="mb-4"><input type="text" id="resi-no" placeholder="Masukkan No Resi (Contoh: JNE-123)" class="w-full border rounded p-2"></div>
+          <div class="mb-4"><input type="text" id="resi-ekspedisi" placeholder="Nama Ekspedisi (JNE/TIKI/POS)" class="w-full border rounded p-2"></div>
+          <button onclick="submitResi()" class="bg-green-600 text-white px-4 py-2 rounded">Simpan Resi</button>
+        </div>
+        <div class="bg-white rounded border overflow-hidden"><table class="w-full text-left text-sm"><thead class="bg-slate-50 border-b"><tr><th class="p-3">Waktu Input</th><th class="p-3">No TT</th><th class="p-3">No Resi</th><th class="p-3">Ekspedisi</th></tr></thead><tbody id="table-resi"></tbody></table></div>
+      </section>
+
+      <!-- HALAMAN: CMD -->
+      <section id="page-cmd" class="page-section hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Customer Master Data (CMD)</h1>
+          <button onclick="toggleForm('form-cmd')" class="bg-blue-600 text-white px-4 py-2 rounded shadow">+ Add Customer</button>
+        </div>
+        <div id="form-cmd" class="bg-white p-5 rounded border mb-6 hidden">
+          <div class="mb-3"><input type="text" id="cmd-nama" placeholder="Nama Perusahaan/Customer" class="w-full border rounded p-2"></div>
+          <div class="mb-3"><input type="text" id="cmd-alamat" placeholder="Alamat Lengkap" class="w-full border rounded p-2"></div>
+          <div class="mb-4"><input type="text" id="cmd-pic" placeholder="Nama PIC" class="w-full border rounded p-2"></div>
+          <button onclick="submitCMD()" class="bg-green-600 text-white px-4 py-2 rounded">Simpan CMD</button>
+        </div>
+        <div class="bg-white rounded border overflow-hidden"><table class="w-full text-left text-sm"><thead class="bg-slate-50 border-b"><tr><th class="p-3">Didaftarkan</th><th class="p-3">Nama Customer</th><th class="p-3">Alamat</th><th class="p-3">PIC</th></tr></thead><tbody id="table-cmd"></tbody></table></div>
+      </section>
+
+      <!-- HALAMAN: INVOICE -->
+      <section id="page-invoice" class="page-section hidden">
+        <h1 class="text-2xl font-bold mb-6">Data Detail Invoice</h1>
+        <div class="bg-white rounded border overflow-hidden"><table class="w-full text-left text-sm"><thead class="bg-slate-50 border-b"><tr><th class="p-3">No Tanda Terima (Ref)</th><th class="p-3">No Invoice</th><th class="p-3">Nominal</th></tr></thead><tbody id="table-invoice"></tbody></table></div>
+      </section>
+
     </div>
   </div>
 
   <script>
-    // Line Chart Initialization
-    const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
-    new Chart(ctxRevenue, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-        datasets: [{
-          label: 'Performa (Skor)',
-          data: [65, 78, 90, 81, 105, 124],
-          borderColor: '#2563eb',
-          backgroundColor: 'rgba(37, 99, 235, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        }
-      }
-    });
+    // ⚠️ GANTI URL INI DENGAN URL WEB APP MILIK KAMU!
+    const API_URL = "URL_APPS_SCRIPT_KAMU"; 
 
-    // Doughnut Chart Initialization
-    const ctxStatus = document.getElementById('statusChart').getContext('2d');
-    new Chart(ctxStatus, {
-      type: 'doughnut',
-      data: {
-        labels: ['Selesai', 'Proses', 'Pending'],
-        datasets: [{
-          data: [65, 25, 10],
-          backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
+    // --- NAVIGASI MENU ---
+    function changeMenu(menuId) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.menu-btn').forEach(el => {
+        el.classList.remove('bg-blue-600', 'text-white');
+        el.classList.add('text-slate-400', 'hover:bg-slate-800');
+      });
+      document.getElementById('page-' + menuId).classList.remove('hidden');
+      document.getElementById('btn-' + menuId).classList.add('bg-blue-600', 'text-white');
+      document.getElementById('btn-' + menuId).classList.remove('text-slate-400', 'hover:bg-slate-800');
+    }
+
+    function toggleForm(id) {
+      const form = document.getElementById(id);
+      form.classList.toggle('hidden');
+    }
+
+    function addInvoiceRow() {
+      const row = `<div class="flex space-x-2 inv-row mt-2">
+                     <input type="text" placeholder="No Invoice" class="border rounded p-2 flex-1 inv-no">
+                     <input type="number" placeholder="Nominal Rp" class="border rounded p-2 flex-1 inv-nom">
+                   </div>`;
+      document.getElementById('invoice-list').insertAdjacentHTML('beforeend', row);
+    }
+
+    function setLoading(status) {
+      document.getElementById('loading').style.display = status ? 'flex' : 'none';
+    }
+
+    // --- MENGAMBIL DATA (GET) ---
+    async function loadData() {
+      setLoading(true);
+      try {
+        const response = await fetch(API_URL + "?action=getData");
+        const data = await response.json();
+        
+        // Render Tabel CMD & Select Box
+        let cmdHtml = '';
+        let cmdSelectHtml = '<option value="">-- Pilih Customer --</option>';
+        data.cmd.forEach(row => {
+          cmdHtml += `<tr class="border-b"> <td class="p-3">${new Date(row[0]).toLocaleDateString()}</td> <td class="p-3 font-bold">${row[1]}</td> <td class="p-3">${row[2]}</td> <td class="p-3">${row[3]}</td> </tr>`;
+          cmdSelectHtml += `<option value="${row[1]}">${row[1]}</option>`;
+        });
+        document.getElementById('table-cmd').innerHTML = cmdHtml;
+        document.getElementById('tt-customer').innerHTML = cmdSelectHtml;
+
+        // Render Tabel Tanda Terima & Select Box Resi
+        let ttHtml = '';
+        let resiSelectHtml = '<option value="">-- Pilih No Tanda Terima --</option>';
+        // Reverse agar data terbaru di atas
+        data.tt.reverse().forEach(row => {
+          ttHtml += `<tr class="border-b"> <td class="p-3">${new Date(row[0]).toLocaleDateString()}</td> <td class="p-3 font-bold">${row[1]}</td> <td class="p-3">${row[2]}</td> <td class="p-3 text-blue-600">${row[3]}</td> </tr>`;
+          resiSelectHtml += `<option value="${row[1]}">${row[1]} - ${row[2]}</option>`;
+        });
+        document.getElementById('table-tt').innerHTML = ttHtml;
+        document.getElementById('resi-nott').innerHTML = resiSelectHtml;
+
+        // Render Tabel Resi
+        let resiHtml = '';
+        data.resi.forEach(row => {
+          resiHtml += `<tr class="border-b"> <td class="p-3">${new Date(row[0]).toLocaleDateString()}</td> <td class="p-3">${row[1]}</td> <td class="p-3 font-bold">${row[2]}</td> <td class="p-3">${row[3]}</td> </tr>`;
+        });
+        document.getElementById('table-resi').innerHTML = resiHtml;
+
+        // Render Tabel Invoice
+        let invHtml = '';
+        data.inv.forEach(row => {
+          invHtml += `<tr class="border-b"> <td class="p-3">${row[0]}</td> <td class="p-3 font-bold">${row[1]}</td> <td class="p-3 text-green-600">Rp ${row[2]}</td> </tr>`;
+        });
+        document.getElementById('table-invoice').innerHTML = invHtml;
+
+      } catch (error) {
+        alert("Gagal memuat data. Pastikan URL API sudah benar.");
       }
-    });
+      setLoading(false);
+    }
+
+    // --- MENGIRIM DATA (POST) ---
+    async function sendData(payload) {
+      setLoading(true);
+      await fetch(API_URL, {
+        method: "POST", 
+        // Menggunakan plain text untuk menghindari error CORS preflight
+        body: JSON.stringify(payload)
+      });
+      await loadData(); // Reload data setelah submit
+      setLoading(false);
+      alert("Data berhasil disimpan!");
+    }
+
+    function submitCMD() {
+      sendData({
+        action: "addCMD",
+        nama: document.getElementById('cmd-nama').value,
+        alamat: document.getElementById('cmd-alamat').value,
+        pic: document.getElementById('cmd-pic').value
+      });
+      document.getElementById('form-cmd').classList.add('hidden');
+    }
+
+    function submitResi() {
+      sendData({
+        action: "updateResi",
+        noTT: document.getElementById('resi-nott').value,
+        noResi: document.getElementById('resi-no').value,
+        ekspedisi: document.getElementById('resi-ekspedisi').value
+      });
+      document.getElementById('form-resi').classList.add('hidden');
+    }
+
+    function submitTT() {
+      const customer = document.getElementById('tt-customer').value;
+      const invoices = [];
+      document.querySelectorAll('.inv-row').forEach(row => {
+        const no = row.querySelector('.inv-no').value;
+        const nom = row.querySelector('.inv-nom').value;
+        if(no && nom) invoices.push({ no_invoice: no, nominal: nom });
+      });
+
+      if(!customer || invoices.length === 0) return alert("Pilih customer dan isi minimal 1 invoice!");
+
+      sendData({
+        action: "addTT",
+        customer: customer,
+        invoices: invoices
+      });
+      document.getElementById('form-tt').classList.add('hidden');
+    }
+
+    // Load data saat pertama kali web dibuka
+    window.onload = loadData;
   </script>
 </body>
 </html>
