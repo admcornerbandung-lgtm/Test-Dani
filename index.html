@@ -3,410 +3,362 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Corner - AR & Ekspedisi</title>
-  
-  <!-- Tailwind CSS -->
+  <title>Admin Corner - AR System</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Phosphor Icons (Modern Icons) -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
   <style>
     body { font-family: 'Inter', sans-serif; }
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased h-screen flex overflow-hidden">
+<body class="bg-slate-900 text-slate-100 h-screen flex overflow-hidden">
 
-  <!-- SIDEBAR MODERN -->
-  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 shadow-xl z-20">
-    <div class="h-16 flex items-center px-6 border-b border-slate-800/60">
-      <div class="flex items-center gap-2 text-white font-bold text-lg tracking-wide">
-        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
-          <i class="ph-fill ph-chart-polar text-xl"></i>
-        </div>
-        Admin Corner
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col shrink-0">
+    <div class="h-16 flex items-center px-6 border-b border-slate-800 font-bold text-lg text-amber-500 gap-2">
+      <i class="ph-fill ph-files text-2xl"></i> Admin Corner
     </div>
-    
-    <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
-      <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-2">Menu Utama</p>
-      
-      <button onclick="changeMenu('tt')" id="btn-tt" class="w-full flex items-center gap-3 px-3 py-2.5 bg-blue-600/10 text-blue-500 rounded-lg text-sm font-medium transition-all menu-btn border border-blue-500/20">
+    <nav class="p-4 space-y-1.5 flex-1">
+      <button onclick="changeMenu('tt')" id="btn-tt" class="w-full flex items-center gap-3 px-3 py-2.5 bg-amber-500/10 text-amber-500 rounded-lg text-sm font-medium menu-btn border border-amber-500/30">
         <i class="ph ph-receipt text-lg"></i> Tanda Terima
       </button>
-      
-      <button onclick="changeMenu('resi')" id="btn-resi" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition-all menu-btn border border-transparent">
-        <i class="ph ph-truck text-lg"></i> Resi Ekspedisi
+      <button onclick="changeMenu('resi')" id="btn-resi" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 rounded-lg text-sm font-medium menu-btn border border-transparent">
+        <i class="ph ph-truck text-lg"></i> Resi / Messenger
       </button>
-      
-      <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Database</p>
-      
-      <button onclick="changeMenu('cmd')" id="btn-cmd" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition-all menu-btn border border-transparent">
+      <button onclick="changeMenu('cmd')" id="btn-cmd" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 rounded-lg text-sm font-medium menu-btn border border-transparent">
         <i class="ph ph-users-three text-lg"></i> Data CMD
       </button>
-      
-      <button onclick="changeMenu('invoice')" id="btn-invoice" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-sm font-medium transition-all menu-btn border border-transparent">
+      <button onclick="changeMenu('invoice')" id="btn-invoice" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-slate-800 rounded-lg text-sm font-medium menu-btn border border-transparent">
         <i class="ph ph-file-text text-lg"></i> Data Invoice
       </button>
     </nav>
   </aside>
 
-  <!-- MAIN CONTENT AREA -->
-  <main class="flex-1 flex flex-col h-full relative overflow-hidden">
-    
-    <!-- TOPBAR -->
-    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 z-10">
-      <h2 id="page-title" class="text-lg font-semibold text-slate-800">Dashboard Tanda Terima</h2>
-      <div class="flex items-center gap-4">
-        <button class="text-slate-400 hover:text-slate-600 transition"><i class="ph ph-bell text-xl"></i></button>
-        <div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-sm">
-          AD
-        </div>
-      </div>
+  <!-- MAIN AREA -->
+  <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-900">
+    <header class="h-16 border-b border-slate-800 flex items-center justify-between px-8 shrink-0 bg-slate-950/50">
+      <h2 id="page-title" class="text-lg font-bold text-slate-100">Dashboard Tanda Terima</h2>
+      <span class="text-xs text-slate-400">Klik baris tabel untuk melihat detail data</span>
     </header>
 
-    <!-- CONTENT SCROLL AREA -->
-    <div class="flex-1 overflow-y-auto p-8">
-      
+    <div class="flex-1 overflow-y-auto p-8 relative">
       <!-- LOADING OVERLAY -->
-      <div id="loading" class="absolute inset-0 bg-white/60 backdrop-blur-sm z-50 flex-col items-center justify-center hidden">
-        <i class="ph ph-spinner-gap animate-spin text-4xl text-blue-600 mb-3"></i>
-        <span class="text-slate-600 font-medium">Memproses Data...</span>
+      <div id="loading" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center hidden">
+        <i class="ph ph-spinner-gap animate-spin text-4xl text-amber-500 mb-2"></i>
+        <span class="text-slate-300 font-medium text-sm">Memproses Data...</span>
       </div>
 
-      <!-- ================= SECTION: TANDA TERIMA ================= -->
+      <!-- TANDA TERIMA SECTION -->
       <section id="page-tt" class="page-section">
         <div class="flex justify-between items-center mb-6">
-          <p class="text-slate-500 text-sm">Kelola dan pantau pembuatan tanda terima baru.</p>
-          <button onclick="toggleModal('modal-tt')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm shadow-blue-600/30 transition-all text-sm font-medium">
-            <i class="ph ph-plus-circle text-lg"></i> Buat Tanda Terima
+          <p class="text-slate-400 text-sm">Daftar tanda terima invoice yang telah dibuat.</p>
+          <button onclick="toggleModal('modal-tt')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+            <i class="ph ph-plus-bold"></i> Buat Tanda Terima
           </button>
         </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
           <table class="w-full text-left text-sm whitespace-nowrap">
-            <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold tracking-wider">
-              <tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">No Tanda Terima</th><th class="px-6 py-4">Customer</th><th class="px-6 py-4">Status Resi</th></tr>
+            <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 text-xs font-semibold uppercase">
+              <tr><th class="p-4">No TT VC</th><th class="p-4">Customer</th><th class="p-4">Tgl TT</th><th class="p-4">Metode</th><th class="p-4">Status / Resi</th></tr>
             </thead>
-            <tbody id="table-tt" class="divide-y divide-slate-100"></tbody>
+            <tbody id="table-tt" class="divide-y divide-slate-800/50 cursor-pointer"></tbody>
           </table>
         </div>
       </section>
 
-      <!-- ================= SECTION: RESI ================= -->
+      <!-- RESI SECTION -->
       <section id="page-resi" class="page-section hidden">
         <div class="flex justify-between items-center mb-6">
-          <p class="text-slate-500 text-sm">Perbarui nomor resi pengiriman untuk tanda terima yang ada.</p>
-          <button onclick="toggleModal('modal-resi')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm shadow-blue-600/30 transition-all text-sm font-medium">
-            <i class="ph ph-truck text-lg"></i> Update Resi
+          <p class="text-slate-400 text-sm">Update status pengiriman via Ekspedisi atau Messenger.</p>
+          <button onclick="toggleModal('modal-resi')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+            <i class="ph ph-truck-bold"></i> Update Resi / Messenger
           </button>
         </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
           <table class="w-full text-left text-sm whitespace-nowrap">
-            <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold tracking-wider">
-              <tr><th class="px-6 py-4">Waktu Input</th><th class="px-6 py-4">No TT Referensi</th><th class="px-6 py-4">No Resi</th><th class="px-6 py-4">Ekspedisi</th></tr>
+            <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 text-xs font-semibold uppercase">
+              <tr><th class="p-4">No TT VC</th><th class="p-4">Kategori</th><th class="p-4">No Resi / PIC</th><th class="p-4">Ekspedisi / Tgl Diterima</th></tr>
             </thead>
-            <tbody id="table-resi" class="divide-y divide-slate-100"></tbody>
+            <tbody id="table-resi" class="divide-y divide-slate-800/50 cursor-pointer"></tbody>
           </table>
         </div>
       </section>
 
-      <!-- ================= SECTION: CMD ================= -->
+      <!-- CMD SECTION -->
       <section id="page-cmd" class="page-section hidden">
         <div class="flex justify-between items-center mb-6">
-          <p class="text-slate-500 text-sm">Database master untuk informasi customer.</p>
-          <button onclick="toggleModal('modal-cmd')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm shadow-blue-600/30 transition-all text-sm font-medium">
-            <i class="ph ph-user-plus text-lg"></i> Tambah Customer
+          <p class="text-slate-400 text-sm">Database Customer Master Data.</p>
+          <button onclick="toggleModal('modal-cmd')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+            <i class="ph ph-user-plus-bold"></i> Tambah Customer
           </button>
         </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
           <table class="w-full text-left text-sm whitespace-nowrap">
-            <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold tracking-wider">
-              <tr><th class="px-6 py-4">Tgl Daftar</th><th class="px-6 py-4">Nama Perusahaan</th><th class="px-6 py-4">Alamat</th><th class="px-6 py-4">PIC</th></tr>
+            <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 text-xs font-semibold uppercase">
+              <tr><th class="p-4">Nama Customer</th><th class="p-4">Alamat</th><th class="p-4">PIC</th></tr>
             </thead>
-            <tbody id="table-cmd" class="divide-y divide-slate-100"></tbody>
+            <tbody id="table-cmd" class="divide-y divide-slate-800/50 cursor-pointer"></tbody>
           </table>
         </div>
       </section>
 
-      <!-- ================= SECTION: INVOICE ================= -->
+      <!-- INVOICE SECTION -->
       <section id="page-invoice" class="page-section hidden">
-        <div class="mb-6">
-          <p class="text-slate-500 text-sm">Detail riwayat invoice yang terhubung dengan tanda terima.</p>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="mb-6"><p class="text-slate-400 text-sm">Rincian invoice terdaftar.</p></div>
+        <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
           <table class="w-full text-left text-sm whitespace-nowrap">
-            <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold tracking-wider">
-              <tr><th class="px-6 py-4">No Tanda Terima (Ref)</th><th class="px-6 py-4">No Invoice</th><th class="px-6 py-4">Nominal</th></tr>
+            <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 text-xs font-semibold uppercase">
+              <tr><th class="p-4">No TT VC</th><th class="p-4">No Invoice</th><th class="p-4">Bulan Billing</th><th class="p-4">Nilai Invoice</th></tr>
             </thead>
-            <tbody id="table-invoice" class="divide-y divide-slate-100"></tbody>
+            <tbody id="table-invoice" class="divide-y divide-slate-800/50 cursor-pointer"></tbody>
           </table>
         </div>
       </section>
-
     </div>
   </main>
 
-  <!-- ================= MODALS (POP-UP FORMS) ================= -->
-  
-  <!-- Modal TT -->
-  <div id="modal-tt" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
-      <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-        <h3 class="font-bold text-lg text-slate-800">Buat Tanda Terima</h3>
-        <button onclick="toggleModal('modal-tt')" class="text-slate-400 hover:text-red-500 transition"><i class="ph ph-x text-xl"></i></button>
+  <!-- MODAL FORM TANDA TERIMA & INVOICE -->
+  <div id="modal-tt" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl">
+      <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 class="font-bold text-amber-500">Pembuatan Tanda Terima Invoice Form</h3>
+        <button onclick="toggleModal('modal-tt')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
       </div>
-      <div class="p-6 overflow-y-auto">
-        <div class="mb-5">
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Pilih Customer</label>
-          <select id="tt-customer" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"></select>
+      <div class="p-6 overflow-y-auto space-y-4 text-sm">
+        <div class="grid grid-cols-2 gap-4">
+          <div><label class="text-slate-400 block mb-1">No. Tanda Terima VC</label><input type="text" id="tt-vc" value="9789/INV/ASSA/0/0" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">Nama Customer*</label><select id="tt-customer" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5" onchange="autoFillAddress()"></select></div>
+          <div><label class="text-slate-400 block mb-1">Tanggal Tanda Terima*</label><input type="date" id="tt-tgl" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">Up Penerima*</label><input type="text" id="tt-up" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div class="col-span-2"><label class="text-slate-400 block mb-1">Alamat*</label><input type="text" id="tt-alamat" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">Metode Pengiriman*</label><select id="tt-metode" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"><option>Email</option><option>Kurir / Hardcopy</option></select></div>
+          <div><label class="text-slate-400 block mb-1">Jenis Dokumen*</label><input type="text" id="tt-jenis" value="New" readonly class="w-full bg-slate-950 border border-slate-800 rounded p-2.5 text-amber-500 font-bold"></div>
+          <div><label class="text-slate-400 block mb-1">Evidence Email</label><input type="text" id="tt-evidence" placeholder="Link / Catatan Email" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">Konfirmasi Evidence</label><input type="text" id="tt-konfirmasi" value="Tidak Terkonfirmasi" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
         </div>
-        <div class="mb-2">
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Daftar Invoice</label>
-          <div id="invoice-list" class="space-y-3">
-            <div class="flex gap-3 inv-row">
-              <input type="text" placeholder="No. Invoice" class="border border-slate-300 rounded-lg p-2.5 flex-1 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition inv-no">
-              <input type="number" placeholder="Nominal (Rp)" class="border border-slate-300 rounded-lg p-2.5 flex-1 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition inv-nom">
-            </div>
-          </div>
-          <button onclick="addInvoiceRow()" class="mt-3 text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"><i class="ph ph-plus"></i> Tambah Baris</button>
-        </div>
+
+        <hr class="border-slate-800 my-4">
+        <h4 class="font-bold text-amber-500">Distribusi Invoice Form</h4>
+        <div id="invoice-container" class="space-y-4"></div>
+        <button onclick="addInvoiceFormBlock()" class="text-amber-500 font-medium text-xs flex items-center gap-1">+ Tambah Invoice</button>
       </div>
-      <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-        <button onclick="toggleModal('modal-tt')" class="px-4 py-2 rounded-lg text-slate-600 font-medium hover:bg-slate-200 transition">Batal</button>
-        <button onclick="submitTT()" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-sm shadow-blue-600/30">Simpan Data</button>
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end gap-2">
+        <button onclick="toggleModal('modal-tt')" class="px-4 py-2 rounded bg-slate-800 text-slate-300">Batal</button>
+        <button onclick="submitTT()" class="px-4 py-2 rounded bg-amber-500 text-slate-950 font-bold">Simpan</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Resi -->
-  <div id="modal-resi" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-        <h3 class="font-bold text-lg text-slate-800">Update Resi</h3>
-        <button onclick="toggleModal('modal-resi')" class="text-slate-400 hover:text-red-500 transition"><i class="ph ph-x text-xl"></i></button>
+  <!-- MODAL FORM RESI / MESSENGER -->
+  <div id="modal-resi" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-md shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 class="font-bold text-amber-500">Update Resi / Messenger</h3>
+        <button onclick="toggleModal('modal-resi')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
       </div>
-      <div class="p-6 space-y-4">
+      <div class="p-6 space-y-4 text-sm">
+        <div><label class="text-slate-400 block mb-1">No TT VC</label><select id="resi-nott" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></select></div>
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">No Tanda Terima Referensi</label>
-          <select id="resi-nott" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"></select>
+          <label class="text-slate-400 block mb-1">Kategori Pengiriman</label>
+          <select id="resi-kategori" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5" onchange="toggleResiFields()">
+            <option value="Ekspedisi">Ekspedisi</option>
+            <option value="Messenger">Messenger</option>
+          </select>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Nomor Resi</label>
-          <input type="text" id="resi-no" placeholder="Contoh: JNE-12345" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+
+        <!-- Field Ekspedisi -->
+        <div id="field-ekspedisi" class="space-y-3">
+          <div><label class="text-slate-400 block mb-1">No. Resi</label><input type="text" id="resi-no" placeholder="Masukkan No Resi" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">Ekspedisi</label><input type="text" id="resi-ekspedisi" placeholder="JNE / TIKI / Paxel" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Ekspedisi</label>
-          <input type="text" id="resi-ekspedisi" placeholder="Contoh: JNE / TIKI / Paxel" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+
+        <!-- Field Messenger -->
+        <div id="field-messenger" class="space-y-3 hidden">
+          <div><label class="text-slate-400 block mb-1">Tanggal Diterima</label><input type="date" id="resi-tgl" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+          <div><label class="text-slate-400 block mb-1">PIC Penerima</label><input type="text" id="resi-pic" placeholder="Nama Penerima" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
         </div>
       </div>
-      <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-        <button onclick="toggleModal('modal-resi')" class="px-4 py-2 rounded-lg text-slate-600 font-medium hover:bg-slate-200 transition">Batal</button>
-        <button onclick="submitResi()" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-sm shadow-blue-600/30">Simpan Resi</button>
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end gap-2">
+        <button onclick="toggleModal('modal-resi')" class="px-4 py-2 rounded bg-slate-800 text-slate-300">Batal</button>
+        <button onclick="submitResi()" class="px-4 py-2 rounded bg-amber-500 text-slate-950 font-bold">Simpan</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal CMD -->
-  <div id="modal-cmd" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-        <h3 class="font-bold text-lg text-slate-800">Tambah Customer Baru</h3>
-        <button onclick="toggleModal('modal-cmd')" class="text-slate-400 hover:text-red-500 transition"><i class="ph ph-x text-xl"></i></button>
+  <!-- MODAL FORM CMD -->
+  <div id="modal-cmd" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-md shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 class="font-bold text-amber-500">Tambah Customer Master Data</h3>
+        <button onclick="toggleModal('modal-cmd')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
       </div>
-      <div class="p-6 space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Nama Perusahaan / Customer</label>
-          <input type="text" id="cmd-nama" placeholder="PT. ABC Maju" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Alamat Lengkap</label>
-          <input type="text" id="cmd-alamat" placeholder="Jl. Sudirman No. 1" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Nama PIC</label>
-          <input type="text" id="cmd-pic" placeholder="Budi Santoso" class="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
-        </div>
+      <div class="p-6 space-y-4 text-sm">
+        <div><label class="text-slate-400 block mb-1">Nama Customer</label><input type="text" id="cmd-nama" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+        <div><label class="text-slate-400 block mb-1">Alamat</label><input type="text" id="cmd-alamat" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
+        <div><label class="text-slate-400 block mb-1">PIC</label><input type="text" id="cmd-pic" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5"></div>
       </div>
-      <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-        <button onclick="toggleModal('modal-cmd')" class="px-4 py-2 rounded-lg text-slate-600 font-medium hover:bg-slate-200 transition">Batal</button>
-        <button onclick="submitCMD()" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-sm shadow-blue-600/30">Simpan CMD</button>
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end gap-2">
+        <button onclick="toggleModal('modal-cmd')" class="px-4 py-2 rounded bg-slate-800 text-slate-300">Batal</button>
+        <button onclick="submitCMD()" class="px-4 py-2 rounded bg-amber-500 text-slate-950 font-bold">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL CARD MODAL (PADA SAAT BARIS DIKLIK) -->
+  <div id="modal-detail" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 class="font-bold text-amber-500 flex items-center gap-2"><i class="ph ph-info text-xl"></i> Detail Record Data</h3>
+        <button onclick="toggleModal('modal-detail')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
+      </div>
+      <div id="detail-card-body" class="p-6 space-y-3 text-sm overflow-y-auto max-h-[75vh]"></div>
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end">
+        <button onclick="toggleModal('modal-detail')" class="px-4 py-2 rounded bg-slate-800 text-slate-300">Tutup</button>
       </div>
     </div>
   </div>
 
   <script>
-    // ⚠️ GANTI URL INI DENGAN URL WEB APP MILIK KAMU!
+    // ⚠️ GANTI URL INI DENGAN URL WEBANP APPS SCRIPT ANDA
     const API_URL = "https://script.google.com/macros/s/AKfycbwXuNosVr_1XGjr032--Q1lXCOmIkaqZxlZmQON-R_I-czzQy1MsBIo8xyO52Ijcj9G/exec"; 
 
-    // Konfigurasi Judul Halaman
-    const pageTitles = {
-      'tt': 'Dashboard Tanda Terima',
-      'resi': 'Update Resi Ekspedisi',
-      'cmd': 'Customer Master Data (CMD)',
-      'invoice': 'Data Detail Invoice'
-    };
+    let globalData = {};
 
-    // --- NAVIGASI MENU ---
     function changeMenu(menuId) {
-      // Sembunyikan semua section
       document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
-      
-      // Reset styling semua tombol menu
       document.querySelectorAll('.menu-btn').forEach(el => {
-        el.classList.remove('bg-blue-600/10', 'text-blue-500', 'border-blue-500/20');
+        el.classList.remove('bg-amber-500/10', 'text-amber-500', 'border-amber-500/30');
         el.classList.add('text-slate-400', 'border-transparent');
       });
-      
-      // Aktifkan section dan tombol yang diklik
       document.getElementById('page-' + menuId).classList.remove('hidden');
-      const activeBtn = document.getElementById('btn-' + menuId);
-      activeBtn.classList.remove('text-slate-400', 'border-transparent');
-      activeBtn.classList.add('bg-blue-600/10', 'text-blue-500', 'border-blue-500/20');
-      
-      // Ubah judul Topbar
-      document.getElementById('page-title').innerText = pageTitles[menuId];
+      document.getElementById('btn-' + menuId).classList.add('bg-amber-500/10', 'text-amber-500', 'border-amber-500/30');
     }
 
-    // --- KONTROL MODAL ---
     function toggleModal(id) {
       const modal = document.getElementById(id);
-      if (modal.classList.contains('hidden')) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    function toggleResiFields() {
+      const kat = document.getElementById('resi-kategori').value;
+      if(kat === 'Messenger') {
+        document.getElementById('field-ekspedisi').classList.add('hidden');
+        document.getElementById('field-messenger').classList.remove('hidden');
       } else {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+        document.getElementById('field-ekspedisi').classList.remove('hidden');
+        document.getElementById('field-messenger').classList.add('hidden');
       }
     }
 
-    function addInvoiceRow() {
-      const row = `
-        <div class="flex gap-3 inv-row">
-           <input type="text" placeholder="No. Invoice" class="border border-slate-300 rounded-lg p-2.5 flex-1 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition inv-no">
-           <input type="number" placeholder="Nominal (Rp)" class="border border-slate-300 rounded-lg p-2.5 flex-1 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition inv-nom">
+    function addInvoiceFormBlock() {
+      const html = `
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-3 inv-block relative">
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="text-xs text-slate-400">Kategori</label><input type="text" value="Invoice" class="inv-kategori w-full bg-slate-900 border border-slate-800 rounded p-2 text-amber-500 font-bold"></div>
+            <div><label class="text-xs text-slate-400">Tanggal Pengiriman*</label><input type="date" class="inv-tgl-kirim w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">No Billing/Kontrak/Lampiran*</label><input type="text" value="0" class="inv-no-billing w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">Bulan Billing*</label><select class="inv-bulan w-full bg-slate-900 border border-slate-800 rounded p-2"><option>Januari</option><option>Februari</option><option>Maret</option><option>April</option><option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option><option>September</option><option>Oktober</option><option>November</option><option>Desember</option></select></div>
+            <div><label class="text-xs text-slate-400">No. Polisi</label><input type="text" value="New" class="inv-nopol w-full bg-slate-900 border border-slate-800 rounded p-2 text-amber-500"></div>
+            <div><label class="text-xs text-slate-400">No Invoice/Payung/Lampiran*</label><input type="text" class="inv-no-inv w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">No. Faktur Pajak*</label><input type="text" class="inv-faktur w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">Nilai Invoice*</label><input type="number" value="0" class="inv-nilai w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">Keterangan</label><input type="text" class="inv-ket w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+            <div><label class="text-xs text-slate-400">Metode Pengiriman*</label><input type="text" class="inv-metode w-full bg-slate-900 border border-slate-800 rounded p-2"></div>
+          </div>
         </div>`;
-      document.getElementById('invoice-list').insertAdjacentHTML('beforeend', row);
+      document.getElementById('invoice-container').insertAdjacentHTML('beforeend', html);
     }
 
-    function setLoading(status) {
-      const loader = document.getElementById('loading');
-      if(status) {
-        loader.classList.remove('hidden');
-        loader.classList.add('flex');
-      } else {
-        loader.classList.add('hidden');
-        loader.classList.remove('flex');
+    function autoFillAddress() {
+      const selectedCust = document.getElementById('tt-customer').value;
+      const custData = globalData.cmd.find(c => c[1] === selectedCust);
+      if(custData) {
+        document.getElementById('tt-alamat').value = custData[2] || '';
+        document.getElementById('tt-up').value = custData[3] || '';
       }
     }
 
-    // Formatter Rupiah
-    const formatRp = (angka) => {
-      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
-    }
-
-    // --- MENGAMBIL DATA (GET) ---
     async function loadData() {
-      setLoading(true);
+      document.getElementById('loading').classList.remove('hidden');
       try {
-        const response = await fetch(API_URL + "?action=getData");
-        const data = await response.json();
-        
-        // Render Tabel CMD
-        let cmdHtml = '';
-        let cmdSelectHtml = '<option value="">-- Pilih Customer --</option>';
-        data.cmd.forEach(row => {
-          cmdHtml += `
-            <tr class="hover:bg-slate-50 transition"> 
-              <td class="px-6 py-4 text-slate-500">${new Date(row[0]).toLocaleDateString('id-ID')}</td> 
-              <td class="px-6 py-4 font-semibold text-slate-800">${row[1]}</td> 
-              <td class="px-6 py-4 text-slate-600">${row[2]}</td> 
-              <td class="px-6 py-4 text-slate-600">${row[3]}</td> 
-            </tr>`;
-          cmdSelectHtml += `<option value="${row[1]}">${row[1]}</option>`;
-        });
-        document.getElementById('table-cmd').innerHTML = cmdHtml;
-        document.getElementById('tt-customer').innerHTML = cmdSelectHtml;
+        const res = await fetch(API_URL + "?action=getData");
+        globalData = await res.json();
 
-        // Render Tabel Tanda Terima
-        let ttHtml = '';
-        let resiSelectHtml = '<option value="">-- Pilih No Tanda Terima --</option>';
-        data.tt.reverse().forEach(row => {
-          // Pill logic untuk Resi
-          let resiBadge = row[3] === '-' || !row[3] 
-            ? `<span class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">Belum Dikirim</span>` 
-            : `<span class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 border border-emerald-200"><i class="ph ph-check-circle mr-1"></i>${row[3]}</span>`;
-            
-          ttHtml += `
-            <tr class="hover:bg-slate-50 transition"> 
-              <td class="px-6 py-4 text-slate-500">${new Date(row[0]).toLocaleDateString('id-ID')}</td> 
-              <td class="px-6 py-4 font-semibold text-indigo-600">${row[1]}</td> 
-              <td class="px-6 py-4 text-slate-800">${row[2]}</td> 
-              <td class="px-6 py-4">${resiBadge}</td> 
-            </tr>`;
-          resiSelectHtml += `<option value="${row[1]}">${row[1]} - ${row[2]}</option>`;
+        // Render CMD
+        let cmdRows = '', cmdOptions = '<option value="">-- Pilih Customer --</option>';
+        globalData.cmd.forEach((r, idx) => {
+          cmdRows += `<tr onclick="showDetailCard('cmd', ${idx})" class="hover:bg-slate-800/60"><td class="p-4 font-semibold text-amber-500">${r[1]}</td><td class="p-4">${r[2]}</td><td class="p-4">${r[3]}</td></tr>`;
+          cmdOptions += `<option value="${r[1]}">${r[1]}</option>`;
         });
-        document.getElementById('table-tt').innerHTML = ttHtml;
-        document.getElementById('resi-nott').innerHTML = resiSelectHtml;
+        document.getElementById('table-cmd').innerHTML = cmdRows;
+        document.getElementById('tt-customer').innerHTML = cmdOptions;
 
-        // Render Tabel Resi
-        let resiHtml = '';
-        data.resi.forEach(row => {
-          resiHtml += `
-            <tr class="hover:bg-slate-50 transition"> 
-              <td class="px-6 py-4 text-slate-500">${new Date(row[0]).toLocaleDateString('id-ID')}</td> 
-              <td class="px-6 py-4 text-slate-600">${row[1]}</td> 
-              <td class="px-6 py-4 font-semibold text-slate-800">${row[2]}</td> 
-              <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">${row[3]}</span></td> 
-            </tr>`;
+        // Render TT
+        let ttRows = '', resiOptions = '<option value="">-- Pilih No TT VC --</option>';
+        globalData.tt.slice().reverse().forEach((r, idx) => {
+          const originalIdx = globalData.tt.length - 1 - idx;
+          ttRows += `<tr onclick="showDetailCard('tt', ${originalIdx})" class="hover:bg-slate-800/60"><td class="p-4 font-bold text-amber-500">${r[1]}</td><td class="p-4">${r[2]}</td><td class="p-4">${r[3]}</td><td class="p-4">${r[6]}</td><td class="p-4 text-emerald-400 font-medium">${r[10] || 'Belum Dikirim'}</td></tr>`;
+          resiOptions += `<option value="${r[1]}">${r[1]} - ${r[2]}</option>`;
         });
-        document.getElementById('table-resi').innerHTML = resiHtml;
+        document.getElementById('table-tt').innerHTML = ttRows;
+        document.getElementById('resi-nott').innerHTML = resiOptions;
 
-        // Render Tabel Invoice
-        let invHtml = '';
-        data.inv.forEach(row => {
-          invHtml += `
-            <tr class="hover:bg-slate-50 transition"> 
-              <td class="px-6 py-4 text-slate-500">${row[0]}</td> 
-              <td class="px-6 py-4 font-semibold text-slate-800">${row[1]}</td> 
-              <td class="px-6 py-4 font-medium text-emerald-600">${formatRp(row[2])}</td> 
-            </tr>`;
+        // Render Resi
+        let resiRows = '';
+        globalData.resi.forEach((r, idx) => {
+          const detail = r[2] === 'Messenger' ? `Tgl: ${r[5]}` : `Ekspedisi: ${r[4]}`;
+          const val = r[2] === 'Messenger' ? `PIC: ${r[6]}` : r[3];
+          resiRows += `<tr onclick="showDetailCard('resi', ${idx})" class="hover:bg-slate-800/60"><td class="p-4 font-bold text-amber-500">${r[1]}</td><td class="p-4">${r[2]}</td><td class="p-4">${val}</td><td class="p-4">${detail}</td></tr>`;
         });
-        document.getElementById('table-invoice').innerHTML = invHtml;
+        document.getElementById('table-resi').innerHTML = resiRows;
 
-      } catch (error) {
-        alert("Gagal memuat data. Pastikan URL API sudah benar.");
+        // Render Invoice
+        let invRows = '';
+        globalData.inv.forEach((r, idx) => {
+          invRows += `<tr onclick="showDetailCard('inv', ${idx})" class="hover:bg-slate-800/60"><td class="p-4 text-slate-400">${r[0]}</td><td class="p-4 font-bold text-amber-500">${r[6]}</td><td class="p-4">${r[4]}</td><td class="p-4 text-emerald-400 font-bold">Rp ${Number(r[8]).toLocaleString('id-ID')}</td></tr>`;
+        });
+        document.getElementById('table-invoice').innerHTML = invRows;
+
+      } catch (e) {
+        alert("Gagal memuat data. Cek URL Apps Script!");
       }
-      setLoading(false);
+      document.getElementById('loading').classList.add('hidden');
     }
 
-    // --- MENGIRIM DATA (POST) ---
+    // DETAIL CARD POPUP saat baris diklik
+    function showDetailCard(type, index) {
+      const container = document.getElementById('detail-card-body');
+      let html = '';
+
+      if (type === 'cmd') {
+        const d = globalData.cmd[index];
+        const labels = ['Timestamp', 'Nama Customer', 'Alamat', 'PIC'];
+        labels.forEach((lbl, i) => html += `<div class="bg-slate-950 p-3 rounded border border-slate-800"><span class="text-xs text-slate-500 block">${lbl}</span><span class="font-medium text-slate-200">${d[i] || '-'}</span></div>`);
+      } else if (type === 'tt') {
+        const d = globalData.tt[index];
+        const labels = ['Timestamp', 'No. TT VC', 'Customer', 'Tgl TT', 'Up Penerima', 'Alamat', 'Metode Pengiriman', 'Jenis Dokumen', 'Evidence Email', 'Konfirmasi Evidence', 'Status Resi'];
+        labels.forEach((lbl, i) => html += `<div class="bg-slate-950 p-3 rounded border border-slate-800"><span class="text-xs text-slate-500 block">${lbl}</span><span class="font-medium text-amber-500">${d[i] || '-'}</span></div>`);
+      } else if (type === 'resi') {
+        const d = globalData.resi[index];
+        const labels = ['Timestamp', 'No. TT VC', 'Kategori', 'No. Resi', 'Ekspedisi', 'Tgl Diterima', 'PIC Penerima'];
+        labels.forEach((lbl, i) => html += `<div class="bg-slate-950 p-3 rounded border border-slate-800"><span class="text-xs text-slate-500 block">${lbl}</span><span class="font-medium text-slate-200">${d[i] || '-'}</span></div>`);
+      } else if (type === 'inv') {
+        const d = globalData.inv[index];
+        const labels = ['No TT VC', 'Kategori', 'Tgl Pengiriman', 'No Billing', 'Bulan Billing', 'No Polisi', 'No Invoice', 'No Faktur Pajak', 'Nilai Invoice', 'Keterangan', 'Metode Pengiriman'];
+        labels.forEach((lbl, i) => html += `<div class="bg-slate-950 p-3 rounded border border-slate-800"><span class="text-xs text-slate-500 block">${lbl}</span><span class="font-medium text-slate-200">${d[i] || '-'}</span></div>`);
+      }
+
+      container.innerHTML = html;
+      toggleModal('modal-detail');
+    }
+
     async function sendData(payload) {
-      setLoading(true);
-      await fetch(API_URL, {
-        method: "POST", 
-        body: JSON.stringify(payload)
-      });
+      document.getElementById('loading').classList.remove('hidden');
+      await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
       await loadData();
-      setLoading(false);
-      
-      // Tampilkan notifikasi sukses sederhana
-      const toast = document.createElement('div');
-      toast.className = 'fixed bottom-5 right-5 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-xl font-medium flex items-center gap-2 z-50 animate-bounce';
-      toast.innerHTML = '<i class="ph-fill ph-check-circle text-xl"></i> Data Berhasil Disimpan!';
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
     }
 
     function submitCMD() {
@@ -422,33 +374,53 @@
     function submitResi() {
       sendData({
         action: "updateResi",
-        noTT: document.getElementById('resi-nott').value,
-        noResi: document.getElementById('resi-no').value,
-        ekspedisi: document.getElementById('resi-ekspedisi').value
+        no_tt_vc: document.getElementById('resi-nott').value,
+        kategori: document.getElementById('resi-kategori').value,
+        no_resi: document.getElementById('resi-no').value,
+        ekspedisi: document.getElementById('resi-ekspedisi').value,
+        tgl_diterima: document.getElementById('resi-tgl').value,
+        pic_penerima: document.getElementById('resi-pic').value
       });
       toggleModal('modal-resi');
     }
 
     function submitTT() {
-      const customer = document.getElementById('tt-customer').value;
       const invoices = [];
-      document.querySelectorAll('.inv-row').forEach(row => {
-        const no = row.querySelector('.inv-no').value;
-        const nom = row.querySelector('.inv-nom').value;
-        if(no && nom) invoices.push({ no_invoice: no, nominal: nom });
+      document.querySelectorAll('.inv-block').forEach(b => {
+        invoices.push({
+          kategori: b.querySelector('.inv-kategori').value,
+          tgl_pengiriman: b.querySelector('.inv-tgl-kirim').value,
+          no_billing: b.querySelector('.inv-no-billing').value,
+          bulan_billing: b.querySelector('.inv-bulan').value,
+          no_polisi: b.querySelector('.inv-nopol').value,
+          no_invoice: b.querySelector('.inv-no-inv').value,
+          no_faktur_pajak: b.querySelector('.inv-faktur').value,
+          nilai_invoice: b.querySelector('.inv-nilai').value,
+          keterangan: b.querySelector('.inv-ket').value,
+          metode_pengiriman: b.querySelector('.inv-metode').value
+        });
       });
-
-      if(!customer || invoices.length === 0) return alert("Pilih customer dan isi minimal 1 invoice!");
 
       sendData({
         action: "addTT",
-        customer: customer,
+        no_tt_vc: document.getElementById('tt-vc').value,
+        customer: document.getElementById('tt-customer').value,
+        tgl_tt: document.getElementById('tt-tgl').value,
+        up_penerima: document.getElementById('tt-up').value,
+        alamat: document.getElementById('tt-alamat').value,
+        metode_pengiriman: document.getElementById('tt-metode').value,
+        jenis_dokumen: document.getElementById('tt-jenis').value,
+        evidence_email: document.getElementById('tt-evidence').value,
+        konfirmasi_evidence: document.getElementById('tt-konfirmasi').value,
         invoices: invoices
       });
       toggleModal('modal-tt');
     }
 
-    window.onload = loadData;
+    window.onload = () => {
+      addInvoiceFormBlock();
+      loadData();
+    };
   </script>
 </body>
 </html>
